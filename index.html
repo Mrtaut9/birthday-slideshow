@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mom!</title>
+<style>
+  body, html { 
+    margin: 0; 
+    padding: 0; 
+    height: 100%; 
+    font-family: 'Arial', sans-serif; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background: #ffe6f0; 
+    overflow: hidden; 
+    position: relative;
+  }
+
+  .slideshow { 
+    width: 80%; 
+    max-width: 800px; 
+    text-align: center; 
+    position: relative; 
+    z-index: 10;
+  }
+
+  .slide { 
+    display: none; 
+    padding: 40px; 
+    border-radius: 15px; 
+    background: #fff0f5; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+  }
+
+  .active { display: block; animation: fade 1s; }
+  @keyframes fade { from {opacity:0;} to {opacity:1;} }
+
+  .nav { margin-top: 20px; }
+  button { 
+    padding: 10px 20px; 
+    margin: 0 10px; 
+    border: none; 
+    background: #ff69b4; 
+    color: white; 
+    font-size: 16px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+  }
+  button:hover { background: #ff85c1; }
+  img { max-width: 100%; border-radius: 10px; margin-top: 20px; }
+
+  .flower {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="slideshow">
+  <div class="slide active">
+    <h1>¡Feliz cumpleaños, mamá! 🎂💖</h1>
+  </div>
+  <div class="slide">
+    <h2>Para la mejor mamá del mundo...</h2>
+    <p>Gracias por todo su amor, cariño y apoyo. ¡Hacen la vida tan hermosa!</p>
+  </div>
+  <div class="slide">
+    <h2>Gracia Ma</h2>
+    <p>Gracias por estar siempre a mi lado, por apoyarme cuando más lo necesitaba y por llenar mi vida de amor, comprensión y fuerza. No sé qué haría sin ti, y cada día estoy más agradecido por todo lo que haces por mí.</p>
+  </div>
+  <div class="slide">
+    <h2>De mi parte</h2>
+    <p>Querida Mamá,
+
+¡Feliz cumpleaños a la mamá más increíble del mundo! Quiero que sepas cuánto significas para mí y lo profundamente que te amamos. Cada día, estoy agradecido por tu amabilidad, tu calidez y el amor infinito que nos das. Tienes un corazón que brilla más que cualquier otra cosa y haces que todos a tu alrededor se sientan especiales y queridos.
+
+Mamá, siempre has sido mi luz guía, mi lugar seguro y mi mayor apoyo. Desde las pequeñas cosas que haces cada día hasta los sacrificios que haces sin pedir nada a cambio, me inspiras más de lo que las palabras pueden expresar. Tu risa llena nuestro hogar de alegría y tu sabiduría me da fuerza incluso en los días más difíciles.
+
+En tu día especial, quiero celebrarte, no solo como mi mamá, sino como la persona increíble que eres. Te mereces toda la felicidad, el amor y los momentos hermosos que la vida pueda ofrecer. Que este año te traiga todo lo que siempre has soñado y más, porque alguien tan maravilloso como tú merece nada menos.
+
+Gracias por siempre creer en mí, por levantarme cuando estoy abajo y por enseñarme lo que realmente significa amar incondicionalmente. Espero que hoy esté lleno de risas, calor y recuerdos dulces que atesorarás por siempre.
+
+Todos te amamos muchísimo, más de lo que las palabras podrían expresar. Eres realmente única y me siento muy afortunado cada día de poder llamarte mi mamá.
+
+Con todo mi amor,
+David Gallo</p>
+  </div>
+  <div class="slide">
+    <h2>Mensaje final</h2>
+    <p>¡Feliz cumpleaños, mamá! ¡Que tu día esté lleno de alegría y amor! 🎉</p>
+  </div>
+
+  <div class="nav">
+    <button onclick="prevSlide()">Previous</button>
+    <button onclick="nextSlide()">Next</button>
+  </div>
+</div>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+
+// Use your JFIF image
+const flowerImages = [
+  'pinkblueflower.jpg'
+];
+
+function showSlide(index) {
+  slides.forEach((slide) => slide.classList.remove('active'));
+  slides[index].classList.add('active');
+  addMultipleFlowers();
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(currentSlide);
+}
+
+function createFlower() {
+  const flower = document.createElement('div');
+  flower.className = 'flower';
+  const size = 20 + Math.random() * 30; // 20-50px
+  flower.style.width = size + 'px';
+  flower.style.height = size + 'px';
+  flower.style.left = Math.random() * window.innerWidth + 'px';
+  flower.style.top = '-50px';
+  flower.style.backgroundImage = `url(${flowerImages[Math.floor(Math.random()*flowerImages.length)]})`;
+  flower.style.opacity = Math.random() * 0.8 + 0.3;
+  
+  const fallDuration = 4 + Math.random() * 4; // 4-8s
+  const drift = (Math.random() - 0.5) * 200; // horizontal drift
+
+  document.body.appendChild(flower);
+
+  let start = null;
+  function animate(timestamp) {
+    if (!start) start = timestamp;
+    let progress = (timestamp - start) / 1000;
+    flower.style.top = progress / fallDuration * window.innerHeight + 'px';
+    flower.style.left = parseFloat(flower.style.left) + (drift / fallDuration * 0.016) + 'px';
+    flower.style.transform = `rotate(${progress*360}deg)`;
+    if (progress < fallDuration) {
+      requestAnimationFrame(animate);
+    } else {
+      flower.remove();
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+function addMultipleFlowers() {
+  const count = 7 + Math.floor(Math.random()*6);
+  for (let i = 0; i < count; i++) createFlower();
+}
+
+// Continuous flowers falling
+setInterval(addMultipleFlowers, 500);
+</script>
+
+</body>
+</html>
